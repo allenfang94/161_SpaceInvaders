@@ -19,16 +19,16 @@ public class EnemyMove : MonoBehaviour {
             rate = 0.75f;
             transform.position = new Vector3(transform.position.x + direction * 0.5f, transform.position.y, transform.position.z);
 
-            if (transform.position.x >= 3.5f || transform.position.x <= -3.5f)
+            if (transform.position.x >= 4.5f || transform.position.x <= -4.5f)
             {
                 direction *= -1;
                 transform.position = new Vector3(transform.position.x, transform.position.y - 0.25f, transform.position.z);
             }
         }
 
-        if(transform.position.y <= -2.5f)
+        if(transform.position.y <= -3f)
         {
-            GameManager.gameOver = false;
+			GameManager.gameOver = true;
         }
 
 	}

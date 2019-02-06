@@ -38,14 +38,14 @@ public class EnemyShoot : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {      
         updateSize();
 
         rate -= Time.deltaTime;
-
+        
         if (rate <= 0f)
         {
-            rate = Random.Range(2f, 8f);
+            rate = Random.Range(1f, 2f);
             shootBullet();
         }
         calculateScore();
@@ -86,13 +86,13 @@ public class EnemyShoot : MonoBehaviour {
         for (int x = 0; x <= 10; x += 1)
         {
             if (array[x].Length == 0)
-                score += 100;
-            else if (array[x].Length == 1)
-                score += 60;
-            else if (array[x].Length == 2)
                 score += 40;
-            else if (array[x].Length == 3)
+            else if (array[x].Length == 1)
                 score += 20;
+            else if (array[x].Length == 2)
+                score += 20;
+            else if (array[x].Length == 3)
+                score += 10;
             else if (array[x].Length == 4)
                 score += 10;
         }

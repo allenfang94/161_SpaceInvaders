@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour {
+    
+
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +28,7 @@ public class PlayerBullet : MonoBehaviour {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(collision.gameObject);
+			GameManager.enemyKilled += 1;
             PlayerController.canShoot = true;
             Destroy(gameObject);
         }
