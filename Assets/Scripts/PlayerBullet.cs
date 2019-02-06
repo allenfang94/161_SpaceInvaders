@@ -31,6 +31,12 @@ public class PlayerBullet : MonoBehaviour {
 			GameManager.enemyKilled += 1;
             PlayerController.canShoot = true;
             Destroy(gameObject);
+        }      
+		if (collision.gameObject.tag == "shield")
+        {
+            collision.gameObject.GetComponent<shield>().takeDamage();
+            PlayerController.canShoot = true;
+            Destroy(gameObject);
         }
     }
 }

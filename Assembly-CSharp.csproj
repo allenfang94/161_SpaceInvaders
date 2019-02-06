@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\EnemyShoot.cs" />
     <Compile Include="Assets\Scripts\PlayerBullet.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\shield.cs" />
     <Compile Include="Assets\Scripts\UiManager.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/Aaron_van/Desktop/161_SpaceInvaders/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

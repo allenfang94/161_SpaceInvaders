@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(PlayerController.canShoot);
 
         float translation = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         transform.Translate(translation, 0, 0);

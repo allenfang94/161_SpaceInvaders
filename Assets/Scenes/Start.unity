@@ -1277,11 +1277,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1808807044}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fdba010b47bd48c0af82d891bf5d1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 0}
   lives: {fileID: 0}
-  GM: {fileID: 0}
+  GameOver: {fileID: 0}
+  Pause_UI: {fileID: 0}

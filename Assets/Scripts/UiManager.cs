@@ -12,7 +12,7 @@ public class UiManager : MonoBehaviour {
 	public GameObject Pause_UI;
 	Text score_text;
 	Text lives_text;
-
+    
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 1;
@@ -27,11 +27,24 @@ public class UiManager : MonoBehaviour {
 		score_text.text = ("Score: " + GameManager.score.ToString());
 		lives_text.text = ("Lives: " + GameManager.playerLives.ToString());
 
-		if(GameManager.gameOver || GameManager.enemyKilled == 55)
+		if(GameManager.gameOver)
 		{
 			GameOver.SetActive(true);
+			PlayerPrefs.SetInt("win", 0);
 			Time.timeScale = 0;
 		}
+
+		if(GameManager.enemyKilled % 55 == 0 && GameManager.enemyKilled != 0) //test
+		{
+            PlayerPrefs.SetInt("score", GameManager.score);         
+            PlayerPrefs.SetInt("lives", GameManager.playerLives + 1);
+            PlayerPrefs.SetInt("kills", 0);
+			SceneManager.LoadScene("InGame");
+
+
+			PlayerPrefs.SetFloat("next_enemies_y", PlayerPrefs.GetFloat("next_enemies_y") - 1);
+
+		}      
 
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
@@ -50,6 +63,10 @@ public class UiManager : MonoBehaviour {
 
 	public void startGame()
 	{
+		PlayerPrefs.SetInt("score", 0);
+        PlayerPrefs.SetInt("lives", 3);
+        PlayerPrefs.SetInt("kills", 0);
+		PlayerPrefs.SetFloat("next_enemies_y", 0);
 		SceneManager.LoadScene("InGame");
 	}
 
