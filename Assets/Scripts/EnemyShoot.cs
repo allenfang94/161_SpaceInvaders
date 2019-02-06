@@ -19,7 +19,8 @@ public class EnemyShoot : MonoBehaviour {
 
     GameObject[][] array = new GameObject[11][];
 
-    private float rate = 2f;
+	public float max_shoot_rate = 2f;
+    public float shoot_rate;
 
 
     // Use this for initialization
@@ -35,17 +36,22 @@ public class EnemyShoot : MonoBehaviour {
         array[8] = enemy_9;
         array[9] = enemy_10;
         array[10] = enemy_11;
+
+		max_shoot_rate = PlayerPrefs.GetFloat("enemy_shot_rate");
+		shoot_rate = max_shoot_rate;
+		Debug.Log(max_shoot_rate);
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {      
         updateSize();
 
-        rate -= Time.deltaTime;
-
-        if (rate <= 0f)
+		Debug.Log(shoot_rate);
+		shoot_rate -= Time.deltaTime;
+        
+		if (shoot_rate <= 0f)
         {
-            rate = Random.Range(2f, 8f);
+			shoot_rate = max_shoot_rate;
             shootBullet();
         }
         calculateScore();
@@ -76,21 +82,24 @@ public class EnemyShoot : MonoBehaviour {
     void shootBullet()
     {
         int colNum = Random.Range(0, 11);
-        Vector3 pos = array[colNum][array[colNum].Length-1].transform.position;
+		Vector3 pos = new Vector3(0f, 0f, 0f);
+		while (array[colNum].Length <= 0)
+			colNum = Random.Range(0, 11);      
+        pos = array[colNum][array[colNum].Length-1].transform.position;
         Instantiate(enemyBullet, pos, Quaternion.identity);
     }
 
     public void calculateScore()
     {
-        int score = 0;
+		int score = PlayerPrefs.GetInt("score");
         for (int x = 0; x <= 10; x += 1)
         {
             if (array[x].Length == 0)
                 score += 100;
             else if (array[x].Length == 1)
-                score += 60;
-            else if (array[x].Length == 2)
                 score += 40;
+            else if (array[x].Length == 2)
+                score += 60;
             else if (array[x].Length == 3)
                 score += 20;
             else if (array[x].Length == 4)

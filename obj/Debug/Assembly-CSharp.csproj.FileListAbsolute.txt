@@ -1,0 +1,2 @@
+/Users/Aaron_van/Desktop/161_SpaceInvaders/obj/Debug/Assembly-CSharp.csprojResolveAssemblyReference.cache
+/Users/Aaron_van/Desktop/161_SpaceInvaders/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
