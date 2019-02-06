@@ -19,8 +19,8 @@ public class EnemyShoot : MonoBehaviour {
 
     GameObject[][] array = new GameObject[11][];
 
-    public float rate = 2f;
-	float cur_rate;
+	public float max_shoot_rate = 2f;
+    public float shoot_rate;
 
 
     // Use this for initialization
@@ -37,18 +37,21 @@ public class EnemyShoot : MonoBehaviour {
         array[9] = enemy_10;
         array[10] = enemy_11;
 
-		cur_rate = rate;
+		max_shoot_rate = PlayerPrefs.GetFloat("enemy_shot_rate");
+		shoot_rate = max_shoot_rate;
+		Debug.Log(max_shoot_rate);
     }
 	
 	// Update is called once per frame
 	void Update () {      
         updateSize();
 
-		cur_rate -= Time.deltaTime;
+		Debug.Log(shoot_rate);
+		shoot_rate -= Time.deltaTime;
         
-		if (cur_rate <= 0f)
+		if (shoot_rate <= 0f)
         {
-			cur_rate = Random.Range(1f, 2f);
+			shoot_rate = max_shoot_rate;
             shootBullet();
         }
         calculateScore();

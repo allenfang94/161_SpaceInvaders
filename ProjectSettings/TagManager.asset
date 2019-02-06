@@ -8,6 +8,7 @@ TagManager:
   - gm
   - shield
   - bullet
+  - UFO
   layers:
   - Default
   - TransparentFX

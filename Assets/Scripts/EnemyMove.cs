@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour {
     private int direction = 1;
     public float speed = 0.1f;
-    public float rate = 0.4f;
+	public float max_rate = 0.8f;
+    public float rate = 0;
 	public float Boundary = 4.5f;
 
 	public List<GameObject> children = new List<GameObject>();
@@ -18,7 +19,8 @@ public class EnemyMove : MonoBehaviour {
 		for (int i = 0; i < children_num; ++i)
 		{
 			children[i] = transform.GetChild(i).gameObject;
-		}      
+		}
+		max_rate = GameManager.enemy_move_rate;
     }
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class EnemyMove : MonoBehaviour {
         rate -= Time.deltaTime;
         if (rate <= 0f)
         {
-            rate = 0.75f;
+			rate = max_rate;
             transform.position = new Vector3(transform.position.x + direction * 0.5f, transform.position.y, transform.position.z);
 
 			if (transform.position.x >= Boundary || transform.position.x <= -Boundary)

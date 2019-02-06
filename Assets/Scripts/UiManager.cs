@@ -14,7 +14,7 @@ public class UiManager : MonoBehaviour {
 	Text lives_text;
     
 	// Use this for initialization
-	void Start () {
+	void Start () {      
 		Time.timeScale = 1;
 		GameOver.SetActive(false);
 		Pause_UI.SetActive(false);
@@ -37,8 +37,10 @@ public class UiManager : MonoBehaviour {
 		if(GameManager.enemyKilled % 55 == 0 && GameManager.enemyKilled != 0) //test
 		{
             PlayerPrefs.SetInt("score", GameManager.score);         
-            PlayerPrefs.SetInt("lives", GameManager.playerLives + 1);
-            PlayerPrefs.SetInt("kills", 0);
+            PlayerPrefs.SetInt("lives", GameManager.playerLives + 1);         
+			PlayerPrefs.SetFloat("enemy_move_rate", GameManager.enemy_move_rate/2);  
+			PlayerPrefs.SetFloat("enemy_shot_rate", GameManager.enemy_shot_rate/2);
+            PlayerPrefs.SetInt("kills", 0);   
 			SceneManager.LoadScene("InGame");
 
 
@@ -67,6 +69,8 @@ public class UiManager : MonoBehaviour {
         PlayerPrefs.SetInt("lives", 3);
         PlayerPrefs.SetInt("kills", 0);
 		PlayerPrefs.SetFloat("next_enemies_y", 0);
+		PlayerPrefs.SetFloat("enemy_move_rate", 0.8f);
+		PlayerPrefs.SetFloat("enemy_shot_rate", 2f);
 		SceneManager.LoadScene("InGame");
 	}
 
