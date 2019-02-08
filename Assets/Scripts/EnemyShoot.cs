@@ -5,6 +5,10 @@ using UnityEngine;
 public class EnemyShoot : MonoBehaviour {
     public GameObject enemyBullet;
 
+    static public int leftBorder = 0;
+    static public int rightBorder = 10;
+    static public int usedScore = 0;
+
     public GameObject[] enemy_1;
     public GameObject[] enemy_2;
     public GameObject[] enemy_3;
@@ -19,7 +23,9 @@ public class EnemyShoot : MonoBehaviour {
 
     GameObject[][] array = new GameObject[11][];
 
-    private float rate = 2f;
+	public float max_shoot_rate = 2f;
+    public float shoot_rate;
+    public static int ufo_score = 0;
 
 
     // Use this for initialization
@@ -35,21 +41,41 @@ public class EnemyShoot : MonoBehaviour {
         array[8] = enemy_9;
         array[9] = enemy_10;
         array[10] = enemy_11;
+
+		max_shoot_rate = PlayerPrefs.GetFloat("enemy_shot_rate");
+		shoot_rate = max_shoot_rate;
+		//Debug.Log(max_shoot_rate);
     }
 	
 	// Update is called once per frame
-	void Update () {
+    void Update () {      
+        changeBoarder();
         updateSize();
 
-        rate -= Time.deltaTime;
-
-        if (rate <= 0f)
+		shoot_rate -= Time.deltaTime;
+        
+		if (shoot_rate <= 0f)
         {
-            rate = Random.Range(2f, 8f);
+			shoot_rate = Random.Range(max_shoot_rate, 2* max_shoot_rate);
             shootBullet();
         }
         calculateScore();
-	}
+
+        if (GameManager.gameOver)
+        {
+            leftBorder = 0;
+            rightBorder = 10;
+            EnemyMove.rightBoundary = 4.5f;
+            EnemyMove.leftBoundary = -4.5f;
+        }
+        if (GameManager.enemyKilled % 55 == 0 && GameManager.enemyKilled != 0)
+        {
+            leftBorder = 0;
+            rightBorder = 10;
+            EnemyMove.rightBoundary = 4.5f;
+            EnemyMove.leftBoundary = -4.5f;
+        }
+    }
 
     void updateSize()
     {
@@ -69,6 +95,7 @@ public class EnemyShoot : MonoBehaviour {
             {
                 temp[z] = array[x][z];
             }
+
             array[x] = temp;
         }
     }
@@ -76,7 +103,10 @@ public class EnemyShoot : MonoBehaviour {
     void shootBullet()
     {
         int colNum = Random.Range(0, 11);
-        Vector3 pos = array[colNum][array[colNum].Length-1].transform.position;
+		Vector3 pos = new Vector3(0f, 0f, 0f);
+		while (array[colNum].Length <= 0)
+			colNum = Random.Range(0, 11);      
+        pos = array[colNum][array[colNum].Length-1].transform.position;
         Instantiate(enemyBullet, pos, Quaternion.identity);
     }
 
@@ -96,7 +126,23 @@ public class EnemyShoot : MonoBehaviour {
             else if (array[x].Length == 4)
                 score += 10;
         }
+        GameManager.score = score + ufo_score + usedScore;
+    }
+
+    public void changeBoarder(){
+
+        if (array[leftBorder].Length == 0){
+            print(array[leftBorder].Length);
+            leftBorder += 1;
+            EnemyMove.leftBoundary -= 1;
+        }
+
+        if(array[rightBorder].Length == 0){
+            print(array[rightBorder].Length);
+            rightBorder -= 1;
+            EnemyMove.rightBoundary += 1;
+        }
+
         
-        GameManager.score = score;
     }
 }

@@ -6,7 +6,7 @@ public class EnemyBullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Destroy(this, 5f);
+        Destroy(this, 3f);
 	}
 	
 	// Update is called once per frame
@@ -22,6 +22,12 @@ public class EnemyBullet : MonoBehaviour {
             Destroy(this.gameObject);
             print("Touched: ");
             print(GameManager.playerLives);
+        }
+
+		if (collision.gameObject.tag == "shield")
+        {
+            collision.gameObject.GetComponent<shield>().takeDamage();
+            Destroy(gameObject);
         }
     }
 }

@@ -5,26 +5,27 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public float speed = 7.5f;
 
-    public static bool canShoot = true;
+	public static bool canShoot = true;
     public GameObject playerBullet;
 
 	// Use this for initialization
 	void Start () {
-		
+		canShoot = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
         float translation = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         transform.Translate(translation, 0, 0);
 
-        if (this.transform.position.x > 7.5)
+        if (this.transform.position.x > 9.5)
         {
-            this.transform.position = new Vector3(7.5f, -4f, 0f);
+			this.transform.position = new Vector3(9.5f, this.transform.position.y, 0f);
         }
-        else if (this.transform.position.x < -7.5)
+        else if (this.transform.position.x < -9.5)
         {
-            this.transform.position = new Vector3(-7.5f, -4f, 0f);
+			this.transform.position = new Vector3(-9.5f, this.transform.position.y, 0f);
         }
 
         if (canShoot && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
@@ -32,5 +33,7 @@ public class PlayerController : MonoBehaviour {
             canShoot = false;
             Instantiate(playerBullet, this.transform.position, Quaternion.identity);
         }
+
+		Debug.Log("canshoot: " + canShoot);
     }
 }
